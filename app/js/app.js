@@ -6,20 +6,56 @@ var trace = function(){
   }
 };
 
-var App = App || {};
+var App = (function(){
+  var router;
+  var url='http://localhost:3000/';
 
-App.square = function(x){
-  return x * x
-};
+  var init = function(){
+    router = new Router();
+    Backbone.history.start();
+  };
 
-App.cube = function(x){
-  return x * x * x
-};
+  var Router = Backbone.Router.extend({
+    routes:{
+      '': 'home',
+      'home':'home'
+      //http://localhost:9000/#
+    },
+    home: function(){
+      $('#container').empty();
+      $.ajax({
+        url: url + 'profiles',
+        type:'GET'
+      }).done(function(response){
+      //  trace(response);
+        var template = Handlebars.compile($('#homeTemplate').html());
 
-App.greet = function(string){
-  return string = typeof string !== 'undefined' ? 'Hello ' + string : "Hello World";
-};
+      $('#container').html(template({
+        profiles: response
+      }));
+      }).fail(function(jqXHR, textStatus, errorThrow){
+          trace(jqXHR, textStatus, errorThrow);
+        }).always(function(response){
+          trace(response);
+      });
+    },
+  });
+
+  return {init:init};
+
+})();
 
 $(document).ready(function(){
-  trace('hello world');
+  App.init();
+});
+
+$(document).ajaxStart(function(e){
+  trace('starting an ajax request');
+  $('section#ajax-preloader').fadeIn();
+});
+
+$(document).ajaxComplete(function(e, xhr, settings) {
+  /* executes whenever an AJAX request completes */
+  $('section#ajax-preloader').fadeOut();
+  $('section#container').fadeIn();
 });
