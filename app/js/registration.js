@@ -1,22 +1,17 @@
 var Registration = (function(){
   var authToken, apiHost
-  // var processForm = function(e, form, router){
-  //   if(e.preventDefault) e.preventDefault();
-  //   var username = $(form).find("input[username='")
-  //   var email =
-  //   var password =
 
-  // }
   var run = function(){
     authToken = localStorage.getItem('authToken');
     apiHost = 'http://localhost:3000';
     setupAjaxRequests();
 
     $('#registrationForm').on('submit', submitRegistration);
+
+    $('#loginForm').on('submit', submitLogin);
   };
 
   var submitRegistration = function(e){
-    debugger;
     if(e.preventDeafault) e.preventDefault();
 
     $.ajax({
@@ -71,14 +66,9 @@ var loginSuccess = function(userData) {
     // If status is unauthorized, then redirect to a login route/page
     if (error.status === 401) {
       console.log('SEND TO LOGIN SCREEN');
-      window.location.href = '/sign_in.html';
+      window.location.href = '#/sign_in';
     }
   };
 
   return {run: run};
 })();
-
-
-// $(document).ready(function() {
-//   Registration.run();
-// });

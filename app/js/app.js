@@ -19,7 +19,8 @@ var App = (function(){
     routes:{
       '': 'home',
       'home':'home',
-      'signup':'signup'
+      'signup':'signup',
+      'signin':'signin'
       //http://localhost:9000/#
     },
     home: function(){
@@ -43,12 +44,16 @@ var App = (function(){
 
     signup: function(){
       $('#container').empty().load('partials/signup.html', function(response,status,xhr){
-        // var $form = $('#signUpForm');
-        // $form.on('submit', function(e){
-          Registration.run();
-        // });
+      Registration.run();
       });
     },
+
+    signin: function(){
+      $('#container').empty().load('partials/signin.html', function(response,status,xhr){
+      Registration.run();
+      });
+    },
+
 
   });
 
