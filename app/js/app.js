@@ -18,7 +18,8 @@ var App = (function(){
   var Router = Backbone.Router.extend({
     routes:{
       '': 'home',
-      'home':'home'
+      'home':'home',
+      'signup':'signup'
       //http://localhost:9000/#
     },
     home: function(){
@@ -39,6 +40,16 @@ var App = (function(){
           trace(response);
       });
     },
+
+    signup: function(){
+      $('#container').empty().load('partials/signup.html', function(response,status,xhr){
+        // var $form = $('#signUpForm');
+        // $form.on('submit', function(e){
+          Registration.run();
+        // });
+      });
+    },
+
   });
 
   return {init:init};
