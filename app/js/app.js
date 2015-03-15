@@ -20,7 +20,8 @@ var App = (function(){
       '': 'home',
       'home':'home',
       'signup':'signup',
-      'signin':'signin'
+      'signin':'signin',
+      'dashboard':'dashboard'
       //http://localhost:9000/#
     },
     home: function(){
@@ -54,7 +55,11 @@ var App = (function(){
       });
     },
 
-
+    dashboard: function(){
+      $('#container').empty().load('dashboard.html', function(response,status,xhr){
+      Dashboard.run();
+      });
+    },
   });
 
   return {init:init};
