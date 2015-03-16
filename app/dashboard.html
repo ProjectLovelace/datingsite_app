@@ -10,7 +10,7 @@
 
   <script type="text/x-handlebars-template" id="imageHeaderTemplate">
     <div class="imageHeader">
-      <form action="https://s3.amazonaws.com/datingapp-wdi" method="post" enctype="multipart/form-data">
+      <form id="imageForm" action="https://s3.amazonaws.com/datingapp-wdi" method="post" enctype="multipart/form-data">
         <input type="hidden" name="key" value="{{imageHeader.key}}">
         <input type="hidden" name="AWSAccessKeyId" value="{{imageHeader.access_key}}">
         <input type="hidden" name="policy" value="{{imageHeader.policy}}">
