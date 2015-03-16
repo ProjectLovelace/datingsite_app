@@ -1,9 +1,11 @@
+'use strict';
+
 var Registration = (function(){
   var authToken, apiHost
 
   var run = function(){
     authToken = localStorage.getItem('authToken');
-    apiHost = 'http://localhost:3000';
+    apiHost = 'http://localhost:3000/';
     setupAjaxRequests();
 
     $('#registrationForm').on('submit', submitRegistration);
@@ -15,7 +17,7 @@ var Registration = (function(){
     if(e.preventDeafault) e.preventDefault();
 
     $.ajax({
-      url:apiHost + '/users',
+      url:apiHost + 'users',
       type: 'POST',
       data: {
         user:
@@ -36,7 +38,7 @@ var Registration = (function(){
     event.preventDefault();
     $form = $(this);
     $.ajax({
-      url: apiHost + '/users/sign_in',
+      url: apiHost + 'users/sign_in',
       type: 'POST',
       data: $form.serialize()
     })
@@ -58,7 +60,7 @@ var Registration = (function(){
 var loginSuccess = function(userData) {
     localStorage.setItem('authToken', userData.token);
     console.log('logged in!');
-    window.location.href = '/';
+    window.location.href = '#/dashboard';
   };
 
   var acceptFailure = function(error) {
@@ -70,5 +72,6 @@ var loginSuccess = function(userData) {
     }
   };
 
-  return {run: run};
+  return {run: run,
+    setupAjaxRequests: setupAjaxRequests};
 })();

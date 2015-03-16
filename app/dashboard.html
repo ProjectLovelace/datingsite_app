@@ -1,0 +1,31 @@
+  <script type="text/x-handlebars-template" id="matchesTemplate">
+    {{#each matches}}
+        <div class="matches">
+        <ul>
+          <li> Picture: <img src='{{url}}'> </li>
+        </ul>
+        </div>
+    {{/each}}
+  </script>
+
+  <script type="text/x-handlebars-template" id="imageHeaderTemplate">
+    <div class="imageHeader">
+      <form id="imageForm" action="https://s3.amazonaws.com/datingapp-wdi" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="key" value="{{imageHeader.key}}">
+        <input type="hidden" name="AWSAccessKeyId" value="{{imageHeader.access_key}}">
+        <input type="hidden" name="policy" value="{{imageHeader.policy}}">
+        <input type="hidden" name="signature" value="{{imageHeader.signature}}">
+        <input type="hidden" name="Content-Type" value="image/jpeg">
+
+        <!-- Include any additional input fields here -->
+
+        File to upload to S3:
+        <input name="file" type="file">
+        <br>
+        <input type="submit" value="Upload File to S3">
+      </form>
+  </script>
+
+
+
+

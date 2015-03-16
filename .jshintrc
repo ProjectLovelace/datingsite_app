@@ -1,4 +1,4 @@
-resp{
+{
   "node": true,
   "browser": true,
   "esnext": true,
@@ -18,11 +18,11 @@ resp{
   "trailing": true,
   "smarttabs": true,
 
-  "globals"       : {
+  "globals": {
       "require": true,
       "module": true,
-      "$":true,
-      "Handlebars":true,
-      "Backbone":true
+      "$": true,
+      "Handlebars": true,
+      "Backbone": true
     }
 }
