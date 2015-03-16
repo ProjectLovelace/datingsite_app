@@ -1,38 +1,31 @@
-
- <script type="text/x-handlebars-template" id="matchesTemplate">
+  <script type="text/x-handlebars-template" id="matchesTemplate">
     {{#each matches}}
         <div class="matches">
         <ul>
-            <li> Picture: <img src='{{url}}'> </li>
+          <li> Picture: <img src='{{url}}'> </li>
         </ul>
         </div>
     {{/each}}
   </script>
 
-  <div id="testImage">
-  </div>
+  <script type="text/x-handlebars-template" id="imageHeaderTemplate">
+    <div class="imageHeader">
+      <form action="https://s3.amazonaws.com/datingapp-wdi" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="key" value="{{imageHeader.key}}">
+        <input type="hidden" name="AWSAccessKeyId" value="{{imageHeader.access_key}}">
+        <input type="hidden" name="policy" value="{{imageHeader.policy}}">
+        <input type="hidden" name="signature" value="{{imageHeader.signature}}">
+        <input type="hidden" name="Content-Type" value="image/jpeg">
 
-<!-- <html>
-  <head> -->
-    <title>S3 POST Form</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  </head>
+        <!-- Include any additional input fields here -->
 
-  <body>
-    <form action="https://s3.amazonaws.com/datingapp-wdi" method="post" enctype="multipart/form-data">
-      <input type="hidden" name="key" value='uploads/783dfc15-7f29-476c-bc9a-b2a3583f5f4b'>
-      <input type="hidden" name="AWSAccessKeyId" value="AKIAILSKZUK23JRX35NA">
-      <input type="hidden" name="policy" value='eydleHBpcmF0aW9uJzogJzIwMTUtMDMtMTVUMjA6MTY6MjMuMDAwWicsCiAgICAgICdjb25kaXRpb25zJzogWwogICAgICAgIHsnYnVja2V0JzogJ2RhdGluZ2FwcC13ZGknfSwKICAgICAgICBbJ3N0YXJ0cy13aXRoJywgJyRrZXknLCAndXBsb2Fkcy83ODNkZmMxNS03ZjI5LTQ3NmMtYmM5YS1iMmEzNTgzZjVmNGInXSwKICAgICAgICBbJ3N0YXJ0cy13aXRoJywgJyRDb250ZW50LVR5cGUnLCAnaW1hZ2UvanBlZyddLAogICAgICAgIFsnY29udGVudC1sZW5ndGgtcmFuZ2UnLCAwLCAxMDQ4NTc2MF0sCiAgICAgIF19'>
-      <input type="hidden" name="signature" value='GUlOhvyPhFsBZMU8CCFXJrLN9ns='>
-      <input type="hidden" name="Content-Type" value="image/jpeg">
+        File to upload to S3:
+        <input name="file" type="file">
+        <br>
+        <input type="submit" value="Upload File to S3">
+      </form>
+  </script>
 
-      <!-- Include any additional input fields here -->
 
-      File to upload to S3:
-      <input name="file" type="file">
-      <br>
-      <input type="submit" value="Upload File to S3">
-    </form>
- <!--  </body>
-</html>
- -->
+
+
