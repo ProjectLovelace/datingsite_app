@@ -8,15 +8,15 @@ var trace = function(){
 
 var Dashboard = (function(){
   var authToken, apiHost;
-  var bucketUrl = "https://s3.amazonaws.com/datingapp-wdi/uploads/";
+  var bucketUrl = "https://s3.amazonaws.com/datingapp-wdi/";
   var apiHost = 'http://localhost:3000/';
 
   var run = function(){
     authToken = localStorage.getItem('authToken');
     Registration.setupAjaxRequests();
+    var apiHost = 'http://localhost:3000/';
     getAmazonJson();
     getMatchesImages();
-
   };
 
   var getAmazonJson = function(){
@@ -24,7 +24,7 @@ var Dashboard = (function(){
       url: apiHost + '/amazon/sign_key',
       type: 'GET'
     }).done(function(data){
-       console.log(data);
+     //  console.log(data);
        var template = Handlebars.compile($('#imageHeaderTemplate').html());
        $('#container').html(template({
          imageHeader: data
@@ -38,8 +38,7 @@ var Dashboard = (function(){
   var submitForm = function(fileName){
     var $form = $('form#imageForm');
   $('body').on('submit',$form, function(e,$form){
-    debugger;
-      e.preventDefault();
+      //e.preventDefault();
       postImageRails(fileName);
       $($form).submit();
     });
@@ -47,21 +46,19 @@ var Dashboard = (function(){
 
   var postImageRails = function(imageUrl){
     //need to grab profile_id from somewhere.
-    debugger;
     var profile_id = 1;
     $.ajax({
       url: apiHost + 'profiles/'+ profile_id +'/images',
       type: 'POST',
       data: {
-        images:
+        image:
         {
           url: bucketUrl + imageUrl,
           profile_id: profile_id
         }
       }
     }).done(function(response){
-      debugger;
-      console.log(response)
+    //  console.log(response)
     }).fail(function(jqXHR, textStatus, errorThrow){
           trace(jqXHR, textStatus, errorThrow);
     }).always(function(response){
@@ -70,11 +67,16 @@ var Dashboard = (function(){
   }
   // currently showing all images
   var getMatchesImages = function(){
+    var location_id = 1;
+    console.log(authToken);
+   // debugger;
     $.ajax({
       url: apiHost + 'images',
-      type: 'GET'
+    // url: apiHost + 'locations/' + location_id,
+      type: 'GET',
     }).done(function(response){
-      renderImages(response);
+      console.log(response);
+      renderMatchImages(response);
     }).fail(function(jqXHR, textStatus, errorThrow){
           trace(jqXHR, textStatus, errorThrow);
     }).always(function(response){
@@ -82,17 +84,21 @@ var Dashboard = (function(){
     });
   };
 
-  var renderImages = function(etags){
+  var renderMatchImages = function(matches){
     //template for rendering images, issues getting it going will fix later.
    // var template = Handlebars.compile($('#matchesTemplate').html());
    //    $('#container').html(template({
    //      matches: etags
    //    }));
   //temp fix to get it going
-  etags.map(function(etag){
-    $('#matches').append('<img src="' + etag.url + '">')
-    });
-  };
+  //etags.map(function(matches){
+    matches.map(function(match){
+     // debugger;
+     // $('#matches').append('<img src="' + match.images.url + '">')
+     $('#matches').append('<img src="' + match.url + '">')
+      //});
+      });
+    };
   return{
     run:run
   };
