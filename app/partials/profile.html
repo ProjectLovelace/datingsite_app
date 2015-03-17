@@ -1,0 +1,39 @@
+<!-- HANDLEBARS TEMPLATE EDIT USER PROFILE -->
+
+ <script id="user_profile_template" type="text/x-handlebars-template">
+   {{#user}}
+     <div id=user-{{this.id}}>
+       <ul>
+         <li>Profile:<br>
+           Username: {{username}}
+           <br>
+           Age: {{age}}
+           <br>
+           Seeking: {{seeking}}
+           <br>
+           Languages: {{languages.}}
+           <br>
+           Bio: {{bio}}
+         </li>
+       </ul>
+
+       <button id=edit-profile-b-{{this.id}} class=edit-profile>Edit Your Profile</button><br>
+
+       <form id="profile-edit-form">
+         Username: <input type=text id=user-username-field value="{{username}}" />
+         <br>
+         Age: <input type=text id=user-age-field value="{{age}}" /> <br>
+         Seeking: <input type=text id=user-seeking-field value="{{seeking}}" />
+         <br>
+         Languages: <input type=text id=user-phone-field value="{{languages}}" />
+         <br>
+         Bio: <input type=text id=user-address-1-field value="{{bio}}" />
+         <br>
+
+         <input type="submit" value="Save Your Profile"/>
+       </form>
+     </div>
+   {{/user}}
+ </script>
+
+

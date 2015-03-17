@@ -17,9 +17,20 @@ var Dashboard = (function(){
     var apiHost = 'http://localhost:3000/';
     getAmazonJson();
     getMatchesImages();
+
+var Dashboard = (function(module){
+  module.authToken =localStorage.getItem('authToken');
+  module.bucketUrl = "https://s3.amazonaws.com/datingapp-wdi/uploads/";
+  module.apiHost = 'http://localhost:3000/';
+
+  module.run = function(){
+    //authToken =
+    Registration.setupAjaxRequests(authToken);
+    module.getAmazonJson();
+    module.getMatchesImages();
   };
 
-  var getAmazonJson = function(){
+  module.getAmazonJson = function(){
     $.ajax({
       url: apiHost + '/amazon/sign_key',
       type: 'GET'
@@ -31,12 +42,18 @@ var Dashboard = (function(){
        //   imageHeader: data
        // }));
        submitForm(data.key);
+       console.log(data);
+       var template = Handlebars.compile($('#imageHeaderTemplate').html());
+       $('#container').html(template({
+         imageHeader: data
+       }));
+       module.submitForm(data.key);
     }).fail(function(jqXHR, textStatus, errorThrow){
-          trace(jqXHR, textStatus, errorThrow);
+        trace(jqXHR, textStatus, errorThrow);
     });
   };
 
-  var submitForm = function(fileName){
+  module.submitForm = function(fileName){
     var $form = $('form#imageForm');
     $('body').on('submit',$form, function(e,$form){
       //e.preventDefault();
@@ -45,7 +62,7 @@ var Dashboard = (function(){
     });
   };
 
-  var postImageRails = function(imageUrl){
+  module.postImageRails = function(imageUrl){
     //need to grab profile_id from somewhere.
     var profile_id = 1;
     $.ajax({
@@ -67,7 +84,8 @@ var Dashboard = (function(){
     });
   };
   // currently showing all images
-  var getMatchesImages = function(){
+
+  module.getMatchesImages = function(){
     var location_id = 1;
     $.ajax({
     //  url: apiHost + 'images',
@@ -75,7 +93,7 @@ var Dashboard = (function(){
       type: 'GET',
     }).done(function(response){
     //console.log(response);
-      renderMatchImages(response);
+      module.renderMatchImages(response);
     }).fail(function(jqXHR, textStatus, errorThrow){
           trace(jqXHR, textStatus, errorThrow);
     }).always(function(response){
@@ -104,7 +122,6 @@ var Dashboard = (function(){
   };
 })();
 
-// $(document).ready(function()
-// {
+  return module;
 
-// });
+})(Dashboard || {});
