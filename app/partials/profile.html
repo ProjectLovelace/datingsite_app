@@ -2,6 +2,7 @@
 
  <script id="userProfileTemplate" type="text/x-handlebars-template">
     <div class="userProfile">
+      <img src={{userProfile.featureImage}}>
        <ul>
          <li>Profile:<br>
            Username: {{userProfile.username}}
@@ -18,7 +19,8 @@
     </div>
   </script>
 
-  <script id="">
+  <script id="bop" type="text/x-handlebars-template">
+    <div>
        <button id=edit-profile-b-{{this.id}} class=edit-profile>Edit Your Profile</button><br>
 
        <form id="profile-edit-form">
