@@ -1,7 +1,7 @@
 'use strict';
 
 var Registration = (function(){
-  var authToken, apiHost
+  var authToken, apiHost;
 
   var run = function(){
     authToken = localStorage.getItem('authToken');

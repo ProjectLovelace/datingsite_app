@@ -21,7 +21,8 @@ var App = (function(){
       'home':'home',
       'signup':'signup',
       'signin':'signin',
-      'dashboard':'dashboard'
+      'dashboard':'dashboard',
+      'profile':'profile'
       //http://localhost:9000/#
     },
     home: function(){
@@ -30,7 +31,7 @@ var App = (function(){
         url: url + 'profiles',
         type:'GET'
       }).done(function(response){
-      //  trace(response);
+      //  trace(response); call method to filter for limited number of images
         var template = Handlebars.compile($('#homeTemplate').html());
 
       $('#container').html(template({
@@ -58,6 +59,12 @@ var App = (function(){
     dashboard: function(){
       $('#container').empty().load('dashboard.html', function(response,status,xhr){
       Dashboard.run();
+      });
+    },
+
+    profile: function(){
+      $('#container').empty().load('partials/profile.html', function(response,status,xhr){
+      Dashboard.getUserProfile();
       });
     },
   });
