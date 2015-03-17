@@ -14,7 +14,7 @@ var Dashboard = (function(module) {
 
   module.getUserProfile = function(){
     debugger;
-    Registration.setupAjaxRequests(module.authToken)
+    Registration.setupAjaxRequests(module.authToken);
     var profile_id = 1;
     $.ajax({
       url: module.apiHost + 'profiles/' + profile_id,

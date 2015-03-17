@@ -6,18 +6,6 @@ var trace = function(){
   }
 };
 
-var Dashboard = (function(){
-  var authToken, apiHost;
-  var bucketUrl = "https://s3.amazonaws.com/datingapp-wdi/";
-  var apiHost = 'http://localhost:3000/';
-
-  var run = function(){
-    authToken = localStorage.getItem('authToken');
-    setupAjaxRequests();
-    var apiHost = 'http://localhost:3000/';
-    getAmazonJson();
-    getMatchesImages();
-
 var Dashboard = (function(module){
   module.authToken =localStorage.getItem('authToken');
   module.bucketUrl = "https://s3.amazonaws.com/datingapp-wdi/uploads/";
@@ -101,26 +89,22 @@ var Dashboard = (function(module){
     });
   };
 
-//ask about later.
-  var setupAjaxRequests = function() {
-    $.ajaxPrefilter(function( options ) {
-      options.headers = {};
-      options.headers['AUTHORIZATION'] = "Token token=" + authToken;
-    });
-  };
+  //ask about later.
+  // var setupAjaxRequests = function(authToken) {
+  //   $.ajaxPrefilter(function( options ) {
+  //     options.headers = {};
+  //     options.headers['AUTHORIZATION'] = "Token token=" + authToken;
+  //   });
+  // };
 
-  var renderMatchImages = function(matches){
+  module.renderMatchImages = function(matches){
     debugger;
     //template for rendering images, issues getting it going will fix later.
     var template = Handlebars.compile($('#matchesTemplate').html());
       $('#container').html(template({
         snapshots: matches
       }));
-    };
-  return{
-    run:run
   };
-})();
 
   return module;
 
