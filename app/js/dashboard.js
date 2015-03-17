@@ -12,15 +12,14 @@ var Dashboard = (function(module){
   module.apiHost = 'http://localhost:3000/';
 
   module.run = function(){
-    //authToken =
-    Registration.setupAjaxRequests(authToken);
+    Registration.setupAjaxRequests(module.authToken);
     module.getAmazonJson();
     module.getMatchesImages();
   };
 
   module.getAmazonJson = function(){
     $.ajax({
-      url: apiHost + '/amazon/sign_key',
+      url: module.apiHost + '/amazon/sign_key',
       type: 'GET'
     }).done(function(data){
      //  console.log(data);
@@ -29,12 +28,6 @@ var Dashboard = (function(module){
        // $('#container').html(template({
        //   imageHeader: data
        // }));
-       submitForm(data.key);
-       console.log(data);
-       var template = Handlebars.compile($('#imageHeaderTemplate').html());
-       $('#container').html(template({
-         imageHeader: data
-       }));
        module.submitForm(data.key);
     }).fail(function(jqXHR, textStatus, errorThrow){
         trace(jqXHR, textStatus, errorThrow);
@@ -45,7 +38,7 @@ var Dashboard = (function(module){
     var $form = $('form#imageForm');
     $('body').on('submit',$form, function(e,$form){
       //e.preventDefault();
-      postImageRails(fileName);
+      module.postImageRails(fileName);
       $($form).submit();
     });
   };
@@ -59,7 +52,7 @@ var Dashboard = (function(module){
       data: {
         image:
         {
-          url: bucketUrl + imageUrl,
+          url: module.bucketUrl + imageUrl,
           profile_id: profile_id
         }
       }
@@ -77,7 +70,7 @@ var Dashboard = (function(module){
     var location_id = 1;
     $.ajax({
     //  url: apiHost + 'images',
-     url: apiHost + 'locations/' + location_id,
+     url: module.apiHost + 'locations/' + location_id,
       type: 'GET',
     }).done(function(response){
     //console.log(response);
@@ -89,16 +82,7 @@ var Dashboard = (function(module){
     });
   };
 
-  //ask about later.
-  // var setupAjaxRequests = function(authToken) {
-  //   $.ajaxPrefilter(function( options ) {
-  //     options.headers = {};
-  //     options.headers['AUTHORIZATION'] = "Token token=" + authToken;
-  //   });
-  // };
-
   module.renderMatchImages = function(matches){
-    debugger;
     //template for rendering images, issues getting it going will fix later.
     var template = Handlebars.compile($('#matchesTemplate').html());
       $('#container').html(template({
