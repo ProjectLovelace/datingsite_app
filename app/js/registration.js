@@ -49,7 +49,7 @@ var Registration = (function(){
     return false;
   };
 
-  var setupAjaxRequests = function() {
+  var setupAjaxRequests = function(authToken) {
     $.ajaxPrefilter(function( options ) {
       options.headers = {};
       options.headers['AUTHORIZATION'] = "Token token=" + authToken;
