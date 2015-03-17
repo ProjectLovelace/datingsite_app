@@ -46,7 +46,6 @@ var Registration = (function(){
     .fail(function(err) {
       console.log(err);
     });
-
     return false;
   };
 

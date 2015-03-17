@@ -8,15 +8,15 @@ var trace = function(){
 
 var Dashboard = (function(){
   var authToken, apiHost;
-  var bucketUrl = "https://s3.amazonaws.com/datingapp-wdi/uploads/";
+  var bucketUrl = "https://s3.amazonaws.com/datingapp-wdi/";
   var apiHost = 'http://localhost:3000/';
 
   var run = function(){
     authToken = localStorage.getItem('authToken');
-    Registration.setupAjaxRequests();
+    setupAjaxRequests();
+    var apiHost = 'http://localhost:3000/';
     getAmazonJson();
     getMatchesImages();
-
   };
 
   var getAmazonJson = function(){
@@ -24,12 +24,13 @@ var Dashboard = (function(){
       url: apiHost + '/amazon/sign_key',
       type: 'GET'
     }).done(function(data){
-       console.log(data);
-       var template = Handlebars.compile($('#imageHeaderTemplate').html());
-       $('#container').html(template({
-         imageHeader: data
-       }));
-       submitForm(data.key)
+     //  console.log(data);
+     //Add back for showing upload form.
+       // var template = Handlebars.compile($('#imageHeaderTemplate').html());
+       // $('#container').html(template({
+       //   imageHeader: data
+       // }));
+       submitForm(data.key);
     }).fail(function(jqXHR, textStatus, errorThrow){
           trace(jqXHR, textStatus, errorThrow);
     });
@@ -37,9 +38,8 @@ var Dashboard = (function(){
 
   var submitForm = function(fileName){
     var $form = $('form#imageForm');
-  $('body').on('submit',$form, function(e,$form){
-    debugger;
-      e.preventDefault();
+    $('body').on('submit',$form, function(e,$form){
+      //e.preventDefault();
       postImageRails(fileName);
       $($form).submit();
     });
@@ -47,34 +47,35 @@ var Dashboard = (function(){
 
   var postImageRails = function(imageUrl){
     //need to grab profile_id from somewhere.
-    debugger;
     var profile_id = 1;
     $.ajax({
       url: apiHost + 'profiles/'+ profile_id +'/images',
       type: 'POST',
       data: {
-        images:
+        image:
         {
           url: bucketUrl + imageUrl,
           profile_id: profile_id
         }
       }
     }).done(function(response){
-      debugger;
-      console.log(response)
+    //  console.log(response)
     }).fail(function(jqXHR, textStatus, errorThrow){
           trace(jqXHR, textStatus, errorThrow);
     }).always(function(response){
           trace(response);
     });
-  }
+  };
   // currently showing all images
   var getMatchesImages = function(){
+    var location_id = 1;
     $.ajax({
-      url: apiHost + 'images',
-      type: 'GET'
+    //  url: apiHost + 'images',
+     url: apiHost + 'locations/' + location_id,
+      type: 'GET',
     }).done(function(response){
-      renderImages(response);
+    //console.log(response);
+      renderMatchImages(response);
     }).fail(function(jqXHR, textStatus, errorThrow){
           trace(jqXHR, textStatus, errorThrow);
     }).always(function(response){
@@ -82,17 +83,22 @@ var Dashboard = (function(){
     });
   };
 
-  var renderImages = function(etags){
-    //template for rendering images, issues getting it going will fix later.
-   // var template = Handlebars.compile($('#matchesTemplate').html());
-   //    $('#container').html(template({
-   //      matches: etags
-   //    }));
-  //temp fix to get it going
-  etags.map(function(etag){
-    $('#matches').append('<img src="' + etag.url + '">')
+//ask about later.
+  var setupAjaxRequests = function() {
+    $.ajaxPrefilter(function( options ) {
+      options.headers = {};
+      options.headers['AUTHORIZATION'] = "Token token=" + authToken;
     });
   };
+
+  var renderMatchImages = function(matches){
+    debugger;
+    //template for rendering images, issues getting it going will fix later.
+    var template = Handlebars.compile($('#matchesTemplate').html());
+      $('#container').html(template({
+        snapshots: matches
+      }));
+    };
   return{
     run:run
   };
