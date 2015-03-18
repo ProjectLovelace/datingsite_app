@@ -26,7 +26,7 @@ var App = (function(){
         url: url + 'profiles',
         type:'GET'
       }).done(function(response){
-      //  trace(response); call method to filter for limited number of images
+        trace(response);// call method to filter for limited number of images
         var template = Handlebars.compile($('#homeTemplate').html());
 
       $('#container').html(template({
@@ -42,24 +42,30 @@ var App = (function(){
     signup: function(){
       $('#container').empty().load('partials/signup.html', function(response,status,xhr){
       Registration.run();
+   //   trace(response,status,xhr);
       });
     },
 
     signin: function(){
       $('#container').empty().load('partials/signin.html', function(response,status,xhr){
       Registration.run();
+   //   trace(response,status,xhr);
+
       });
     },
 
     dashboard: function(){
       $('#container').empty().load('dashboard.html', function(response,status,xhr){
       Dashboard.run();
+    //  trace(response,status,xhr);
       });
     },
 
     profile: function(){
       $('#container').empty().load('partials/profile.html', function(response,status,xhr){
       Dashboard.getUserProfile();
+   //   trace(response,status,xhr);
+
       });
     },
 
@@ -75,6 +81,8 @@ var App = (function(){
 
       $('#container').empty().load('partials/match_profile.html', function(response,status,xhr){
         Dashboard.aMatchProfile(profileId);
+     //   trace(response,status,xhr);
+
       });
     },
   });
@@ -91,12 +99,13 @@ Backbone.history.start();
 //});
 
 $(document).ajaxStart(function(e){
-  trace('starting an ajax request');
+ // trace('starting an ajax request');
   $('section#ajax-preloader').fadeIn();
 });
 
 $(document).ajaxComplete(function(e, xhr, settings) {
   /* executes whenever an AJAX request completes */
+ // trace(e,xhr,settings);
   $('section#ajax-preloader').fadeOut();
   $('section#container').fadeIn();
 });

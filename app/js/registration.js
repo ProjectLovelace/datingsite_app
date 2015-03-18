@@ -14,7 +14,9 @@ var Registration = (function(){
   };
 
   var submitRegistration = function(e){
-    if(e.preventDeafault) e.preventDefault();
+    if(e.preventDeafault){
+      e.preventDefault();
+    }
     $.ajax({
       url:apiHost + '/users',
       type: 'POST',
@@ -26,6 +28,9 @@ var Registration = (function(){
           password: $('#password').val()
         }
       },
+      complete: function(response){
+        console.log('completing the submitRegistration ajax request',response);
+      }
     }).done(loginSuccess).fail(function(err){
       console.log(err);
     });
@@ -39,7 +44,10 @@ var Registration = (function(){
     $.ajax({
       url: apiHost + '/users/sign_in',
       type: 'POST',
-      data: $form.serialize()
+      data: $form.serialize(),
+      complete: function(response){
+        console.log('from the complete submitlogin callback',response);
+      },
     })
     .done(loginSuccess)
     .fail(function(err) {
@@ -51,7 +59,7 @@ var Registration = (function(){
   var setupAjaxRequests = function(authToken) {
     $.ajaxPrefilter(function( options ) {
       options.headers = {};
-      options.headers['AUTHORIZATION'] = "Token token=" + authToken;
+      options.headers['AUTHORIZATION'] = 'Token token=' + authToken;
     });
   };
 
@@ -67,14 +75,16 @@ var Registration = (function(){
     window.location.href = '/';
   };
 
-var loginSuccess = function(userData) {
+  var loginSuccess = function(userData) {
+    console.log('loginSuccess userData: ',userData);
     localStorage.setItem('userId', userData.user_id);
     localStorage.setItem('userName', userData.username);
     localStorage.setItem('authToken', userData.token);
     localStorage.setItem('profileId', userData.profile_id);
     //Add patch method here.
-    console.log('logged in!');
-    window.location.href = '#/dashboard';
+    // console.log('logged in!');
+
+   // window.location.href = '#/dashboard';
   };
 
   var acceptFailure = function(error) {

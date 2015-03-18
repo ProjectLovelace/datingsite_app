@@ -8,13 +8,14 @@ var trace = function(){
 
 var Dashboard = (function(module){
   module.authToken =localStorage.getItem('authToken');
-  module.bucketUrl = "https://s3.amazonaws.com/datingapp-wdi/uploads/";
+  module.bucketUrl = 'https://s3.amazonaws.com/datingapp-wdi/uploads/';
   module.apiHost = 'http://localhost:3000/';
 
   module.run = function(){
     Registration.setupAjaxRequests(module.authToken);
-    module.getAmazonJson();
+  //  module.getAmazonJson();
     module.getMatchesImages();
+
   };
 
   module.getAmazonJson = function(){
@@ -37,7 +38,6 @@ var Dashboard = (function(module){
   module.submitForm = function(fileName){
     var $form = $('form#imageForm');
     $('body').on('submit',$form, function(e,$form){
-      debugger;
       //e.preventDefault();
       module.postImageRails(fileName);
       $($form).submit();
@@ -48,7 +48,7 @@ var Dashboard = (function(module){
     //need to grab profile_id from somewhere.
     var profile_id = 1;
     $.ajax({
-      url: apiHost + 'profiles/'+ profile_id +'/images',
+      url: module.apiHost + 'profiles/'+ profile_id +'/images',
       type: 'POST',
       data: {
         image:
@@ -58,7 +58,7 @@ var Dashboard = (function(module){
         }
       }
     }).done(function(response){
-    //  console.log(response)
+      trace(response);
     }).fail(function(jqXHR, textStatus, errorThrow){
           trace(jqXHR, textStatus, errorThrow);
     }).always(function(response){
@@ -87,9 +87,9 @@ var Dashboard = (function(module){
 
   module.renderMatchImages = function(matches){
     var template = Handlebars.compile($('#matchesTemplate').html());
-      $('#container').html(template({
-        snapshots: matches
-      }));
+    $('#container').html(template({
+      snapshots: matches
+    }));
   };
 
   module.aMatchProfile = function(profile_id){
