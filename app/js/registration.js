@@ -84,7 +84,7 @@ var Registration = (function(){
     //Add patch method here.
     // console.log('logged in!');
 
-   // window.location.href = '#/dashboard';
+    window.location.href = '#/dashboard';
   };
 
   var acceptFailure = function(error) {

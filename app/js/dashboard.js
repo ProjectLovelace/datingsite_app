@@ -19,16 +19,17 @@ var Dashboard = (function(module){
   };
 
   module.getAmazonJson = function(){
+    Registration.setupAjaxRequests(module.authToken);
     $.ajax({
-      url: module.apiHost + '/amazon/sign_key',
+      url: module.apiHost + 'amazon/sign_key',
       type: 'GET'
     }).done(function(data){
      //  console.log(data);
      //Add back for showing upload form.
-       // var template = Handlebars.compile($('#imageHeaderTemplate').html());
-       // $('#container').html(template({
-       //   imageHeader: data
-       // }));
+       var template = Handlebars.compile($('#imageHeaderTemplate').html());
+       $('#container').html(template({
+         imageHeader: data
+       }));
        module.submitForm(data.key);
     }).fail(function(jqXHR, textStatus, errorThrow){
         trace(jqXHR, textStatus, errorThrow);
