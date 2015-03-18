@@ -7,13 +7,7 @@ var trace = function(){
 };
 
 var App = (function(){
-  var router;
   var url='http://localhost:3000/';
-
-  var init = function(){
-    router = new Router();
-    Backbone.history.start();
-  };
 
   var Router = Backbone.Router.extend({
     routes:{
@@ -80,18 +74,21 @@ var App = (function(){
       var profileId = parseInt(locate.substring(point+1, locate.length));
 
       $('#container').empty().load('partials/match_profile.html', function(response,status,xhr){
-      Dashboard.aMatchProfile(profileId);
+        Dashboard.aMatchProfile(profileId);
       });
     },
   });
 
-  return {init:init};
+  return {Router:Router};
 
 })();
 
-$(document).ready(function(){
-  App.init();
-});
+var router = new App.Router();
+Backbone.history.start();
+
+//$(document).ready(function(){
+ // App.();
+//});
 
 $(document).ajaxStart(function(e){
   trace('starting an ajax request');

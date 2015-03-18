@@ -37,6 +37,7 @@ var Dashboard = (function(module){
   module.submitForm = function(fileName){
     var $form = $('form#imageForm');
     $('body').on('submit',$form, function(e,$form){
+      debugger;
       //e.preventDefault();
       module.postImageRails(fileName);
       $($form).submit();
@@ -67,7 +68,7 @@ var Dashboard = (function(module){
   // currently showing all images
 
   module.getMatchesImages = function(){
-    Registration.setupAjaxRequests(module.authToken);
+   // Registration.setupAjaxRequests(module.authToken);
     var location_id = 1;
     $.ajax({
     //  url: apiHost + 'images',
@@ -75,6 +76,7 @@ var Dashboard = (function(module){
       type: 'GET',
     }).done(function(response){
     //console.log(response);
+   // debugger;
       module.renderMatchImages(response);
     }).fail(function(jqXHR, textStatus, errorThrow){
           trace(jqXHR, textStatus, errorThrow);
@@ -90,12 +92,11 @@ var Dashboard = (function(module){
       }));
   };
 
-  module.aMatchProfile = function(){
+  module.aMatchProfile = function(profile_id){
 
-    var user_id = localst 'userId'
     $.ajax({
     //  url: apiHost + 'images',
-     url: module.apiHost + 'profiles/' + user_id,
+     url: module.apiHost + 'profiles/' + profile_id,
       type: 'GET',
     }).done(function(response){
     //console.log(response);

@@ -1,43 +1,18 @@
 <!-- HANDLEBARS TEMPLATE EDIT USER PROFILE -->
 
- <script id="userProfileTemplate" type="text/x-handlebars-template">
-    <div class="userProfile">
-      <img src={{userProfile.featureImage}}>
-       <ul>
-         <li>Profile:<br>
-           Username: {{userProfile.username}}
-           <br>
-           Age: {{userProfile.age}}
-           <br>
-           Seeking: {{userProfile.seeking}}
-           <br>
-           Languages: {{userProfile.languages}}
-           <br>
-           Bio: {{userProfile.bio}}
-         </li>
-       </ul>
-    </div>
-  </script>
+<script id="userEditProfileTemplate" type="text/x-handlebars-template">
+  <div class="editProfile">
 
-  <script id="bop" type="text/x-handlebars-template">
-    <div>
-       <button id=edit-profile-b-{{this.id}} class=edit-profile>Edit Your Profile</button><br>
+    <form id="profile-edit-form">
 
-       <form id="profile-edit-form">
-         Username: <input type=text id=user-username-field value="{{username}}" />
-         <br>
-         Age: <input type=text id=user-age-field value="{{age}}" /> <br>
-         Seeking: <input type=text id=user-seeking-field value="{{seeking}}" />
-         <br>
-         Bio: <input type=text id=user-bio-field value="{{bio}}" />
-         <br>
-         // Languages: <input type=text id=user-languages-field value="{{languages}}" />
-         // <br>
+      Age: <input type=text id=user-age-field value="{{userProfile.age}}" />
+      Seeking: <input type=text id=user-seeking-field value="{{userProfile.seeking}}" />
 
-         <input type="submit" value="Save Your Profile"/>
-       </form>
-     </div>
- </script>
+      Bio: <input type=text id=user-bio-field value="{{userProfile.bio}}" />
 
+      Languages: <input type=text id=user-languages-field value="{{languages}}" />
 
-
+      <input type="submit" value="Save Your Profile"/>
+    </form>
+  </div>
+</script>

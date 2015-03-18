@@ -9,17 +9,13 @@ var Registration = (function(){
     setupAjaxRequests();
 
     $('#registrationForm').on('submit', submitRegistration);
-
     $('#loginForm').on('submit', submitLogin);
     $('#signOut').on('click', signOut);
-
   };
 
   var submitRegistration = function(e){
     if(e.preventDeafault) e.preventDefault();
-
     $.ajax({
-
       url:apiHost + '/users',
       type: 'POST',
       data: {
@@ -72,11 +68,11 @@ var Registration = (function(){
   };
 
 var loginSuccess = function(userData) {
-  debugger;
     localStorage.setItem('userId', userData.user_id);
     localStorage.setItem('userName', userData.username);
     localStorage.setItem('authToken', userData.token);
     localStorage.setItem('profileId', userData.profile_id);
+    //Add patch method here.
     console.log('logged in!');
     window.location.href = '#/dashboard';
   };
