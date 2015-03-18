@@ -67,6 +67,7 @@ var Dashboard = (function(module){
   // currently showing all images
 
   module.getMatchesImages = function(){
+    Registration.setupAjaxRequests(module.authToken);
     var location_id = 1;
     $.ajax({
     //  url: apiHost + 'images',
@@ -83,12 +84,35 @@ var Dashboard = (function(module){
   };
 
   module.renderMatchImages = function(matches){
-    //template for rendering images, issues getting it going will fix later.
     var template = Handlebars.compile($('#matchesTemplate').html());
       $('#container').html(template({
         snapshots: matches
       }));
   };
+
+  module.aMatchProfile = function(profile_id){
+    $.ajax({
+    //  url: apiHost + 'images',
+     url: module.apiHost + 'profiles/' + profile_id,
+      type: 'GET',
+    }).done(function(response){
+    //console.log(response);
+      module.renderAMatchProfile(response);
+    }).fail(function(jqXHR, textStatus, errorThrow){
+          trace(jqXHR, textStatus, errorThrow);
+    }).always(function(response){
+          trace(response);
+    });
+
+  };
+
+  module.renderAMatchProfile = function(match){
+    var template = Handlebars.compile($('#matchProfileTemplate').html());
+      $('#container').html(template({
+        matchProfile: match
+      }));
+  };
+
 
   return module;
 

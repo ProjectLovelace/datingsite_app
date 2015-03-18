@@ -11,18 +11,21 @@ var Registration = (function(){
     $('#registrationForm').on('submit', submitRegistration);
 
     $('#loginForm').on('submit', submitLogin);
+    $('#signOut').on('click', signOut);
+
   };
 
   var submitRegistration = function(e){
     if(e.preventDeafault) e.preventDefault();
 
     $.ajax({
-      url:apiHost + 'users',
+
+      url:apiHost + '/users',
       type: 'POST',
       data: {
         user:
         {
-          name: $('#username').val(),
+          username: $('#username').val(),
           email: $('#email').val(),
           password: $('#password').val()
         }
@@ -38,7 +41,7 @@ var Registration = (function(){
     event.preventDefault();
     $form = $(this);
     $.ajax({
-      url: apiHost + 'users/sign_in',
+      url: apiHost + '/users/sign_in',
       type: 'POST',
       data: $form.serialize()
     })
@@ -56,8 +59,20 @@ var Registration = (function(){
     });
   };
 
+  var signOut = function(event){
+    event.preventDefault();
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('userName');
+    authToken = undefined;
+    console.log('User has been signed out');
+    location.reload();
+    window.location.href = '/';
+  };
+
 var loginSuccess = function(userData) {
     localStorage.setItem('userId', userData.user_id);
+    localStorage.setItem('userName', userData.username);
     localStorage.setItem('authToken', userData.token);
     console.log('logged in!');
     window.location.href = '#/dashboard';

@@ -22,7 +22,8 @@ var App = (function(){
       'signup':'signup',
       'signin':'signin',
       'dashboard':'dashboard',
-      'profile':'profile'
+      'profile':'profile',
+      'matchProfile/:id':'matchProfile'
       //http://localhost:9000/#
     },
     home: function(){
@@ -65,6 +66,21 @@ var App = (function(){
     profile: function(){
       $('#container').empty().load('partials/profile.html', function(response,status,xhr){
       Dashboard.getUserProfile();
+      });
+    },
+
+    matchProfile: function(){
+    //   debugger;
+    // var $buttonMatch = $('button.matchProfile');
+    // $('body').on('click',$buttonMatch, function(e,$buttonMatch){
+    //   debugger;
+    // });
+      var locate = window.location.hash;
+      var point = locate.lastIndexOf('/');
+      var profileId = parseInt(locate.substring(point+1, locate.length));
+
+      $('#container').empty().load('partials/match_profile.html', function(response,status,xhr){
+      Dashboard.aMatchProfile(profileId);
       });
     },
   });

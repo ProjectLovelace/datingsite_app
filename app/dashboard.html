@@ -2,10 +2,11 @@
     {{#each snapshots}}
         <div class="snapshot">
         <ul>
-        <li><img src={{featureImage}}></li>
+          <li><img src={{featureImage}}></li>
           <li> Age: {{age}}; </li>
           <li> Seeking: {{seeking}};</li>
-        </ul>
+          <li><a href="/#/matchProfile/{{id}}"> Full Profile</a></li>
+          </ul>
         </div>
     {{/each}}
   </script>
