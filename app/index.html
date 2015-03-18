@@ -22,6 +22,7 @@
         <li><a href="#/">Home</a></li>
         <li><a href="#/signup">SignUp</a></li>
         <li><a href="#/signin">SignIn</a></li>
+        <li><a href="#/" id="signOut">SignOut</a></li>
         <li><a href="#/profile">Profile</a></li>
     </ul>
     </nav>
@@ -72,7 +73,10 @@
         <div class="profiles">
         <h2><a href="{{url}}" target="_blank">{{title}}</h2>
         </a><ul>
+        <li> <img src={{featureImage}}></li>
             <li> Age: {{age}}; </li>
+        }
+        }
         </ul>
         </div>
     {{/each}}

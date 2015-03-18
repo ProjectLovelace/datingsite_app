@@ -11,6 +11,8 @@ var Registration = (function(){
     $('#registrationForm').on('submit', submitRegistration);
 
     $('#loginForm').on('submit', submitLogin);
+    $('#signOut').on('click', signOut);
+
   };
 
   var submitRegistration = function(e){
@@ -35,6 +37,7 @@ var Registration = (function(){
   };
 
   var submitLogin = function(event) {
+    debugger;
     var $form;
     event.preventDefault();
     $form = $(this);
@@ -55,6 +58,15 @@ var Registration = (function(){
       options.headers = {};
       options.headers['AUTHORIZATION'] = "Token token=" + authToken;
     });
+  };
+
+  var signOut = function(event){
+    event.preventDefault();
+    localStorage.removeItem('authToken');
+    authToken = undefined;
+    console.log('User has been signed out');
+    location.reload();
+    window.location.href = '/';
   };
 
 var loginSuccess = function(userData) {
