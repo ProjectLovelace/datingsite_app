@@ -58,6 +58,7 @@ var Registration = (function(){
   };
 
 var loginSuccess = function(userData) {
+    localStorage.setItem('userId', userData.user_id);
     localStorage.setItem('authToken', userData.token);
     console.log('logged in!');
     window.location.href = '#/dashboard';
