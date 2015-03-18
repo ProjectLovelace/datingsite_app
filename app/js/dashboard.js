@@ -90,10 +90,12 @@ var Dashboard = (function(module){
       }));
   };
 
-  module.aMatchProfile = function(profile_id){
+  module.aMatchProfile = function(){
+
+    var user_id = localst 'userId'
     $.ajax({
     //  url: apiHost + 'images',
-     url: module.apiHost + 'profiles/' + profile_id,
+     url: module.apiHost + 'profiles/' + user_id,
       type: 'GET',
     }).done(function(response){
     //console.log(response);

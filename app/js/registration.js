@@ -64,6 +64,7 @@ var Registration = (function(){
     localStorage.removeItem('authToken');
     localStorage.removeItem('userId');
     localStorage.removeItem('userName');
+    localStorage.removeItem('profileId');
     authToken = undefined;
     console.log('User has been signed out');
     location.reload();
@@ -71,9 +72,11 @@ var Registration = (function(){
   };
 
 var loginSuccess = function(userData) {
+  debugger;
     localStorage.setItem('userId', userData.user_id);
     localStorage.setItem('userName', userData.username);
     localStorage.setItem('authToken', userData.token);
+    localStorage.setItem('profileId', userData.profile_id);
     console.log('logged in!');
     window.location.href = '#/dashboard';
   };
