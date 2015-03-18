@@ -25,7 +25,7 @@ var Registration = (function(){
       data: {
         user:
         {
-          name: $('#username').val(),
+          username: $('#username').val(),
           email: $('#email').val(),
           password: $('#password').val()
         }
@@ -37,7 +37,6 @@ var Registration = (function(){
   };
 
   var submitLogin = function(event) {
-    debugger;
     var $form;
     event.preventDefault();
     $form = $(this);
@@ -63,6 +62,8 @@ var Registration = (function(){
   var signOut = function(event){
     event.preventDefault();
     localStorage.removeItem('authToken');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('userName');
     authToken = undefined;
     console.log('User has been signed out');
     location.reload();
@@ -71,6 +72,7 @@ var Registration = (function(){
 
 var loginSuccess = function(userData) {
     localStorage.setItem('userId', userData.user_id);
+    localStorage.setItem('userName', userData.username);
     localStorage.setItem('authToken', userData.token);
     console.log('logged in!');
     window.location.href = '#/dashboard';
