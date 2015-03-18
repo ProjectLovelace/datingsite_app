@@ -20,7 +20,6 @@ var Dashboard = (function(module){
 
   module.getAmazonJson = function(){
     Registration.setupAjaxRequests(module.authToken);
-     debugger;
     $.ajax({
       url: module.apiHost + 'amazon/sign_key',
       type: 'GET'
@@ -31,7 +30,6 @@ var Dashboard = (function(module){
        $('#container').html(template({
          imageHeader: data
        }));
-       debugger;
        module.submitForm(data.key);
     }).fail(function(jqXHR, textStatus, errorThrow){
         trace(jqXHR, textStatus, errorThrow);
