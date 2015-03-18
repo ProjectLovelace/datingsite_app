@@ -5,14 +5,25 @@
 
     <form id="profile-edit-form">
 
-      Age: <input type=text id=user-age-field value="{{userProfile.age}}" />
-      Seeking: <input type=text id=user-seeking-field value="{{userProfile.seeking}}" />
+      Age: <input type=text id=user-age-field value="{{editProfile.age}}" />
 
-      Bio: <input type=text id=user-bio-field value="{{userProfile.bio}}" />
+      Seeking: <select id=user-seeking-field>
+        <option value="Romantic">Romantic</option>
+        <option value="Platonic">Platonic</option>
+        <option value="Strictly Code">Strictly Code</option>
+      </select>
 
-      Languages: <input type=text id=user-languages-field value="{{languages}}" />
+      Gender: <select id=user-gender-field>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+      </select>
 
-      <input type="submit" value="Save Your Profile"/>
+      Bio: <input type=text id=user-bio-field value="{{editProfile.bio}}" />
+
+      Languages: <input type=text id=user-languages-field value="{{editProfile.languages}}" />
+
+      <input type="submit" class="submitProfile" value="Save Your Profile"/>
     </form>
   </div>
 </script>
