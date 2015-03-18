@@ -17,7 +17,8 @@ var App = (function(){
       'signin':'signin',
       'dashboard':'dashboard',
       'profile':'profile',
-      'matchProfile/:id':'matchProfile'
+      'matchProfile/:id':'matchProfile',
+      'addImage':'addImage'
       //http://localhost:9000/#
     },
     home: function(){
@@ -85,8 +86,14 @@ var App = (function(){
 
       });
     },
-  });
 
+    addImage: function(){
+      debugger;
+      $('#container').empty().load('dashboard.html', function(response,status,xhr){
+        Dashboard.getAmazonJson();
+      });
+    },
+  });
   return {Router:Router};
 
 })();
