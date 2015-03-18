@@ -39,9 +39,9 @@ var Dashboard = (function(module){
   };
 
   module.submitForm = function(fileName){
-    var $form = $('form#imageForm');
+    var $form = 'form#imageForm';
     $('body').on('submit',$form, function(e,$form){
-      //e.preventDefault();
+      e.preventDefault();
       module.postImageRails(fileName);
       $($form).submit();
     });
