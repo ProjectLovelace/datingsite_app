@@ -13,11 +13,10 @@ var Dashboard = (function(module) {
       dataType: 'JSON'
     })
     .done(function(data){
-      debugger;
       module.showUserProfileForm(data);
     })
     .fail(function() {
-      console.log("error");
+      console.log('error');
     });
   };
 
@@ -30,7 +29,6 @@ var Dashboard = (function(module) {
       var $form = $('form#profile-edit-form');
     $('body').on('submit',$form, function(e,$form){
       e.preventDefault();
-      debugger;
       module.editUserProfile();
      // $($form).submit();
     });
@@ -38,7 +36,7 @@ var Dashboard = (function(module) {
 
   module.editUserProfile = function(){
 
-  }
+  };
 
   return module;
 
