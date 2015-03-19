@@ -24,6 +24,11 @@ var Dashboard = (function(module) {
   };
 
   module.showUserProfileForm = function(profile) {
+    response.map(function(profile){
+      if(profile.featureImage == null){
+        profile.featureImage = "https://s3.amazonaws.com/datingapp-wdi/uploads/default-blue_300x300.png";
+      };
+    });
     var template = Handlebars.compile($('#userEditProfileTemplate').html());
     var location = module.matchLocation()
     $('#container').html(template({

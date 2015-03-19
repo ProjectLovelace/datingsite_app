@@ -32,9 +32,32 @@ ul li{
  margin: 1px;
  padding: 5px;
  height: 100%;
- border: 3px white dashed;
+ border: 5px white solid;
+ border-radius: 10px;
  background: #D3D3D3
+}
 
+#fullMatch-container{
+  vertical-align: top;
+  height: 600px;
+  width: 600px;
+}
+
+#fullMatch-container ul{
+ vertical-align: top;
+ background: #d3d3d3;
+ margin: 1px;
+ padding: 5px;
+ height: 100%;
+ border: 13px white solid;
+ border-radius: 20px;
+ background: #D3D3D3;
+ font-size: 1.5em;
+}
+
+#fullMatch-container img{
+  width: 400px;
+  height: auto;
 }
 
 

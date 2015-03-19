@@ -80,6 +80,11 @@ var Dashboard = (function(module){
     }).done(function(response){
     //console.log(response);
    // debugger;
+    response.map(function(profile){
+      if(profile.featureImage == null){
+        profile.featureImage = "https://s3.amazonaws.com/datingapp-wdi/uploads/default-blue_300x300.png";
+      };
+    });
       module.renderMatchImages(response);
     }).fail(function(jqXHR, textStatus, errorThrow){
           trace(jqXHR, textStatus, errorThrow);
@@ -97,7 +102,6 @@ var Dashboard = (function(module){
 
   module.aMatchProfile = function(profile_id){
     Registration.setupAjaxRequests(localStorage.getItem('authToken'));
-
     $.ajax({
     //  url: apiHost + 'images',
      url: module.apiHost + 'profiles/' + profile_id,
@@ -114,6 +118,9 @@ var Dashboard = (function(module){
   };
 
   module.renderAMatchProfile = function(match){
+    if(match.featureImage === null){
+      match.featureImage = "https://s3.amazonaws.com/datingapp-wdi/uploads/default-blue_300x300.png";
+    }
     var template = Handlebars.compile($('#matchProfileTemplate').html());
       //$('#container').html(template({
         $('#matchRow').html(template({

@@ -19,8 +19,8 @@ var Registration = (function(){
   };
 
   var submitRegistration = function(event){
-    localStorage.setItem('locationId', $('#user-region').val());
     event.preventDefault();
+    localStorage.setItem('locationId', $('#user-region').val());
     $.ajax({
       url:apiHost + '/users',
       type: 'POST',
@@ -73,7 +73,7 @@ var Registration = (function(){
     localStorage.removeItem('userId');
    // localStorage.removeItem('userName');
     localStorage.removeItem('profileId');
-    localStorage.removeItem('region');
+    localStorage.removeItem('locationId');
     authToken = undefined;
     console.log('User has been signed out');
     location.reload();

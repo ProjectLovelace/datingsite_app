@@ -22,12 +22,18 @@ var App = (function(){
       //http://localhost:9000/#
     },
     home: function(){
+      $('#matchRow').empty();
       $('#container').empty();
       $.ajax({
         url: apiHost + 'profiles',
         type:'GET'
       }).done(function(response){
-        trace(response);// call method to filter for limited number of images
+       // trace(response);// call method to filter for limited number of images
+       response.map(function(profile){
+      if(profile.featureImage == null){
+        profile.featureImage = "https://s3.amazonaws.com/datingapp-wdi/uploads/default-blue_300x300.png";
+      };
+    });
         var template = Handlebars.compile($('#homeTemplate').html());
 
       $('#container').html(template({
@@ -41,6 +47,7 @@ var App = (function(){
     },
 
     signup: function(){
+      $('#matchRow').empty();
       $('#container').empty().load('partials/signup.html', function(response,status,xhr){
       Registration.run();
   // Dashboard.run();
@@ -49,6 +56,7 @@ var App = (function(){
     },
 
     signin: function(){
+      $('#matchRow').empty();
       $('#container').empty().load('partials/signin.html', function(response,status,xhr){
       Registration.run();
    // Dashboard.run();
@@ -58,7 +66,8 @@ var App = (function(){
     },
 
     dashboard: function(){
-      $('#container').empty().load('dashboard.html', function(response,status,xhr){
+      $('#container').empty();
+      $('#matchRow').empty().load('dashboard.html', function(response,status,xhr){
        // Dashboard.run();
        Dashboard.getMatchesImages();
     //  trace(response,status,xhr);
@@ -66,6 +75,7 @@ var App = (function(){
     },
 
     profile: function(){
+      $('#matchRow').empty();
       $('#container').empty().load('partials/profile.html', function(response,status,xhr){
         Dashboard.getUserProfile();
    //   trace(response,status,xhr);
@@ -76,7 +86,8 @@ var App = (function(){
       var locate = window.location.hash;
       var point = locate.lastIndexOf('/');
       var profileId = parseInt(locate.substring(point+1, locate.length));
-      $('#container').empty().load('partials/match_profile.html', function(response,status,xhr){
+      $('#container').empty();
+      $('#matchRow').empty().load('partials/match_profile.html', function(response,status,xhr){
         Dashboard.aMatchProfile(profileId);
       });
     },
