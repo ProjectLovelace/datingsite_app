@@ -1,0 +1,20 @@
+<!DOCTYPE html> <html> <head> <title>Pairing Programmers</title> <meta charset="utf-8"> <meta name="description" content=""> <meta name="viewport" content="width=device-width"> <!-- Place favicon.ico and apple-touch-icon.png in the root directory --> <link rel="stylesheet" href="styles/vendor.8166acec.css"> <link rel="stylesheet" href="styles/main.df84e040.css">  <body> <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation"> <div class="container-fluid"> <div class="navbar-header"> <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> <span class="sr-only"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button> <a class="navbar-brand" href="#">Pair Programming</a> </div> <div class="navbar-collapse collapse"> <ul class="nav navbar-nav navbar-right"> <li><a href="#/">Home</a></li> <li><a href="#/signup">SignUp</a></li> <li><a href="#/signin">SignIn</a></li> <li><a href="#/" id="signOut">SignOut</a></li> <li><a href="#/profile">Profile</a></li> <li><a href="#/dashboard">Show All Matches</a></li> <li><a href="#/addImage">Add Image</a></li> </ul> <form class="navbar-form navbar-right"> </form> </div> </div> </nav> <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]--> <section id="container"> </section> <div class="container-fluid"> <div class="row" id="matchRow"> </div> </div> <section id="ajax-preloader"> <!--  <div class="animation"></div> --> </section> <footer></footer> <!--[if lt IE 9]>
+    <script src="scripts/oldieshim.d41d8cd9.js"></script>
+    <![endif]--> <script src="scripts/vendor.ec7d57da.js"></script> <script src="scripts/scripts.8f175850.js"></script> <script type="text/x-handlebars-template" id="homeTemplate"><div class="col-xs-10 col-xs-offset-1">
+    <a href="#/signin"><button type="button" class="btn btn-default btn-xl">Sign In</button></a>
+    <a href="#/signup"><button type="button" class="btn btn-default btn-xl">Sign Up</button></a>
+    </div>
+    {{#each profiles}}
+        <div class="col-xs-2" id="match-container">
+        <div class="profiles">
+        <h2><a href="{{url}}" target="_blank">{{title}}</h2>
+        </a><ul>
+        <li> <img class="center-block" src={{featureImage}}></li>
+            <li> Age: {{age}} </li>
+            <li> Languages: {{languages}}</li>
+        </ul>
+        </div>
+        </div>
+    {{/each}}</script>  
