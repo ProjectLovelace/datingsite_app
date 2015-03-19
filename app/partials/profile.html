@@ -4,26 +4,27 @@
   <div class="editProfile">
 
     <form id="profile-edit-form">
+    <ul>
+      <li><img src="{{editProfile.featureImage}}"></li>
+      <li>Age: <input type=text id="user-age-field" value="{{editProfile.age}}" /></li>
 
-      Age: <input type=text id="user-age-field" value="{{editProfile.age}}" />
-
-      Seeking: <select id="user-seeking-field">
+      <li>Seeking: <select id="user-seeking-field">
         <option value="Romantic">Romantic</option>
         <option value="Platonic">Platonic</option>
         <option value="Strictly Code">Strictly Code</option>
-      </select>
+      </select></li>
 
-      Gender: <select id="user-gender-field">
+      <li>Gender: <select id="user-gender-field">
         <option value="Male">Male</option>
         <option value="Female">Female</option>
         <option value="Other">Other</option>
-      </select>
+      </select></li>
 
-      Bio: <input type=text id="user-bio-field" value="{{editProfile.bio}}" />
+      <li>Bio: <input type=text id="user-bio-field" value="{{editProfile.bio}}" /></li>
 
-      Languages: <input type=text id="user-languages-field" value="{{editProfile.languages}}" />
+      <li>Languages: <input type=text id="user-languages-field" value="{{editProfile.languages}}" /></li>
 
-      <label for='selectregion'> Select Region
+      <li><label for='selectregion'> Select Region
       <select id="select-region" name='selectregion'>
         <option value="{{editProfile.location_id}}"> {{location}}</option>
         <option value="1"> Metro Boston</option>
@@ -34,9 +35,10 @@
         <option value="6">Central Mass</option>
         <option value="7">Cape Cod</option>
       </select>
-      </label>
+      </label></li>
 
-      <input type="submit" class="submitProfile" value="Save Your Profile"/>
+      <li><input type="submit" class="submitProfile" value="Save Your Profile"/></li>
+      </ul>
     </form>
   </div>
 </script>

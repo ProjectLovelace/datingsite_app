@@ -33,11 +33,11 @@
     <![endif]-->
     <h1>Pair Programming</h1>
      <section id="container">
+     </section>
      <div class="container-fluid">
          <div class="row" id="matchRow">
          </div>
      </div>
-     </section>
 
     <section id="ajax-preloader">
      <!--  <div class="animation"></div> -->
@@ -75,12 +75,15 @@
 
     <script type="text/x-handlebars-template" id="homeTemplate">
     {{#each profiles}}
+        <div class="col-xs-2" id="match-container">
         <div class="profiles">
         <h2><a href="{{url}}" target="_blank">{{title}}</h2>
         </a><ul>
-        <li> <img src={{featureImage}}></li>
+        <li> <img class="center-block" src={{featureImage}}></li>
             <li> Age: {{age}}; </li>
+            <li> Languages: {{languages}}</li>
         </ul>
+        </div>
         </div>
     {{/each}}
     </script>

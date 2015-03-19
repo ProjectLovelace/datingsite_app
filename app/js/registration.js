@@ -12,15 +12,12 @@ var Registration = (function(){
     $('#registrationForm').on('submit', submitRegistration);
     $('#loginForm').on('submit', submitLogin);
     $('#signOut').on('click', signOut);
-
-  //  authToken = localStorage.getItem('authToken');
     apiHost = 'http://localhost:3000/';
-   // setupAjaxRequests();
   };
 
   var submitRegistration = function(event){
-    localStorage.setItem('locationId', $('#user-region').val());
     event.preventDefault();
+    localStorage.setItem('locationId', $('#user-region').val());
     $.ajax({
       url:apiHost + '/users',
       type: 'POST',
@@ -71,26 +68,22 @@ var Registration = (function(){
     event.preventDefault();
     localStorage.removeItem('authToken');
     localStorage.removeItem('userId');
-   // localStorage.removeItem('userName');
     localStorage.removeItem('profileId');
-    localStorage.removeItem('region');
+    localStorage.removeItem('locationId');
     authToken = undefined;
     console.log('User has been signed out');
     location.reload();
     router.navigate('/', {trigger:true});
-    //window.location.href = '/';
   };
 
   var loginSuccess = function(userData) {
     localStorage.setItem('authToken', userData.token);
     authToken = userData.token;
     setupAjaxRequests(authToken);
-
     localStorage.setItem('userId', userData.user_id);
     localStorage.setItem('profileId', userData.profile_id);
     setUserProfileLocation(localStorage.getItem('locationId'));
     router.navigate('#/dashboard', {trigger:true});
-   // window.location.href = '#/dashboard';
   };
 
   var setUserProfileLocation = function(locationId){
@@ -108,7 +101,7 @@ var Registration = (function(){
       trace(profile);
     })
     .fail(function() {
-      console.log("error");
+      console.log('error');
     });
   };
 

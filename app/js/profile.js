@@ -1,9 +1,9 @@
-// 'use strict';
-// var trace = function(){
-//   for(var i = 0; i < arguments.length; i++){
-//     console.log(arguments[i]);
-//   }
-// };
+'use strict';
+var trace = function(){
+  for(var i = 0; i < arguments.length; i++){
+    console.log(arguments[i]);
+  }
+};
 
 var Dashboard = (function(module) {
 
@@ -24,8 +24,11 @@ var Dashboard = (function(module) {
   };
 
   module.showUserProfileForm = function(profile) {
+    if(profile.featureImage == null){
+      profile.featureImage = 'https://s3.amazonaws.com/datingapp-wdi/uploads/default-blue_300x300.png';
+    }
     var template = Handlebars.compile($('#userEditProfileTemplate').html());
-    var location = module.matchLocation()
+    var location = module.matchLocation();
     $('#container').html(template({
       editProfile: profile,
       location: location
@@ -56,10 +59,11 @@ var Dashboard = (function(module) {
     })
     .done(function(profile) {
       localStorage.setItem('locationId', profile.location_id);
-      console.log("success");
+     // console.log("success");
+      router.navigate('#/dashboard', {trigger:true});
     })
     .fail(function() {
-      console.log("error");
+      console.log('error');
     });
   };
 
@@ -67,27 +71,27 @@ var Dashboard = (function(module) {
     var locationId = localStorage.getItem('locationId');
   switch (locationId) {
     case '2':
-      return("North Shore");
+      return('North Shore');
       break;
     case '3':
-      return("North West");
+      return('North West');
       break;
     case '4':
-      return("Metro West");
+      return('Metro West');
       break;
     case '5':
-      return("South Shore");
+      return('South Shore');
       break;
     case '6':
-      return("Central Mass");
+      return('Central Mass');
       break;
     case '7':
-      return("Cape Cod");
+      return('Cape Cod');
       break;
     default:
-      return("Metro Boston")
+      return('Metro Boston');
       break;
-    };
+    }
   };
 
   return module;
