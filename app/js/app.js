@@ -43,6 +43,7 @@ var App = (function(){
     signup: function(){
       $('#container').empty().load('partials/signup.html', function(response,status,xhr){
       Registration.run();
+  // Dashboard.run();
    //   trace(response,status,xhr);
       });
     },
@@ -50,6 +51,7 @@ var App = (function(){
     signin: function(){
       $('#container').empty().load('partials/signin.html', function(response,status,xhr){
       Registration.run();
+   // Dashboard.run();
    //   trace(response,status,xhr);
 
       });
@@ -57,14 +59,15 @@ var App = (function(){
 
     dashboard: function(){
       $('#container').empty().load('dashboard.html', function(response,status,xhr){
-      Dashboard.run();
+       // Dashboard.run();
+       Dashboard.getMatchesImages();
     //  trace(response,status,xhr);
       });
     },
 
     profile: function(){
       $('#container').empty().load('partials/profile.html', function(response,status,xhr){
-      Dashboard.getUserProfile();
+        Dashboard.getUserProfile();
    //   trace(response,status,xhr);
       });
     },

@@ -1,13 +1,14 @@
-'use strict';
-var trace = function(){
-  for(var i = 0; i < arguments.length; i++){
-    console.log(arguments[i]);
-  }
-};
+// 'use strict';
+// var trace = function(){
+//   for(var i = 0; i < arguments.length; i++){
+//     console.log(arguments[i]);
+//   }
+// };
 
 var Dashboard = (function(module) {
 
   module.getUserProfile = function(){
+    Registration.setupAjaxRequests(localStorage.getItem('authToken'));
     var profile_id = localStorage.getItem('profileId');
     $.ajax({
       url: module.apiHost + 'profiles/' + profile_id,
@@ -37,6 +38,7 @@ var Dashboard = (function(module) {
   };
 
   module.submitUserProfile = function(){
+    Registration.setupAjaxRequests(localStorage.getItem('authToken'));
     var profile_id = localStorage.getItem('profileId');
     $.ajax({
       url: module.apiHost + 'profiles/' + profile_id,

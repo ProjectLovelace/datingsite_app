@@ -60,10 +60,10 @@ var Registration = (function(){
     return false;
   };
 
-  var setupAjaxRequests = function(authToken) {
+  var setupAjaxRequests = function(tempAuthToken) {
     $.ajaxPrefilter(function( options ) {
       options.headers = {};
-      options.headers['AUTHORIZATION'] = 'Token token=' + authToken;
+      options.headers['AUTHORIZATION'] = 'Token token=' + tempAuthToken;
     });
   };
 
@@ -77,20 +77,20 @@ var Registration = (function(){
     authToken = undefined;
     console.log('User has been signed out');
     location.reload();
-    route.navigate('/');
+    router.navigate('/', {trigger:true});
     //window.location.href = '/';
   };
 
   var loginSuccess = function(userData) {
-  //  console.log('loginSuccess userData: ',userData);
-    localStorage.setItem('userId', userData.user_id);
-   // localStorage.setItem('userName', userData.username);
     localStorage.setItem('authToken', userData.token);
+    authToken = userData.token;
+    setupAjaxRequests(authToken);
+
+    localStorage.setItem('userId', userData.user_id);
     localStorage.setItem('profileId', userData.profile_id);
     setUserProfileLocation(localStorage.getItem('locationId'));
-
-    // console.log('logged in!');
-    window.location.href = '#/dashboard';
+    router.navigate('#/dashboard', {trigger:true});
+   // window.location.href = '#/dashboard';
   };
 
   var setUserProfileLocation = function(locationId){
@@ -117,7 +117,8 @@ var Registration = (function(){
     // If status is unauthorized, then redirect to a login route/page
     if (error.status === 401) {
       console.log('SEND TO LOGIN SCREEN');
-      window.location.href = '#/sign_in';
+      router.navigate('#/sign_in', {trigger:true});
+     // window.location.href = '#/sign_in';
     }
   };
 
