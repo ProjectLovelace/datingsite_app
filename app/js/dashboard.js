@@ -9,7 +9,7 @@ var trace = function(){
 var Dashboard = (function(module){
  // module.authToken =localStorage.getItem('authToken');
   module.bucketUrl = 'https://s3.amazonaws.com/datingapp-wdi/';
-  module.apiHost = 'http://localhost:3000/';
+  module.apiHost = 'http://sheltered-everglades-8006.herokuapp.com/';
 
   module.getAmazonJson = function(){
   Registration.setupAjaxRequests(localStorage.getItem('authToken'));

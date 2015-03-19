@@ -7,7 +7,7 @@ var trace = function(){
 };
 
 var App = (function(){
-  var apiHost='http://localhost:3000/';
+  var apiHost='http://sheltered-everglades-8006.herokuapp.com/';
 
   var Router = Backbone.Router.extend({
     routes:{
