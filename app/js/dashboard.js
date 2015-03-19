@@ -7,19 +7,20 @@ var trace = function(){
 };
 
 var Dashboard = (function(module){
-  module.authToken =localStorage.getItem('authToken');
+ // module.authToken =localStorage.getItem('authToken');
   module.bucketUrl = 'https://s3.amazonaws.com/datingapp-wdi/uploads/';
   module.apiHost = 'http://localhost:3000/';
 
-  module.run = function(){
-    Registration.setupAjaxRequests(module.authToken);
+  //module.run = function(){
+  //  Registration.setupAjaxRequests(module.authToken);
+  //App.setupAjaxRequests(module.authToken);
   //  module.getAmazonJson();
-    module.getMatchesImages();
+  //  module.getMatchesImages();
 
-  };
+  //};
 
   module.getAmazonJson = function(){
-    Registration.setupAjaxRequests(module.authToken);
+  Registration.setupAjaxRequests(localStorage.getItem('authToken'));
     $.ajax({
       url: module.apiHost + 'amazon/sign_key',
       type: 'GET'
@@ -39,13 +40,14 @@ var Dashboard = (function(module){
   module.submitForm = function(fileName){
     var $form = 'form#imageForm';
     $('body').on('submit',$form, function(e,$form){
-      e.preventDefault();
+    //  e.preventDefault();
       module.postImageRails(fileName);
       $($form).submit();
     });
   };
 
   module.postImageRails = function(imageUrl){
+    Registration.setupAjaxRequests(localStorage.getItem('authToken'));
     //need to grab profile_id from somewhere.
     var profile_id = 1;
     $.ajax({
@@ -69,8 +71,8 @@ var Dashboard = (function(module){
   // currently showing all images
 
   module.getMatchesImages = function(){
-   // Registration.setupAjaxRequests(module.authToken);
-    var location_id = 1;
+    Registration.setupAjaxRequests(localStorage.getItem('authToken'));
+    var location_id = localStorage.getItem('locationId');;
     $.ajax({
     //  url: apiHost + 'images',
      url: module.apiHost + 'locations/' + location_id,
@@ -94,6 +96,7 @@ var Dashboard = (function(module){
   };
 
   module.aMatchProfile = function(profile_id){
+    Registration.setupAjaxRequests(localStorage.getItem('authToken'));
 
     $.ajax({
     //  url: apiHost + 'images',
@@ -112,7 +115,8 @@ var Dashboard = (function(module){
 
   module.renderAMatchProfile = function(match){
     var template = Handlebars.compile($('#matchProfileTemplate').html());
-      $('#container').html(template({
+      //$('#container').html(template({
+        $('#matchRow').html(template({
         matchProfile: match
       }));
   };

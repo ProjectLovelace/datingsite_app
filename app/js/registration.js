@@ -1,22 +1,26 @@
 'use strict';
+var trace = function(){
+  for(var i = 0; i < arguments.length; i++){
+    console.log(arguments[i]);
+  }
+};
 
 var Registration = (function(){
   var authToken, apiHost;
 
   var run = function(){
-    authToken = localStorage.getItem('authToken');
-    apiHost = 'http://localhost:3000/';
-    setupAjaxRequests();
-
     $('#registrationForm').on('submit', submitRegistration);
     $('#loginForm').on('submit', submitLogin);
     $('#signOut').on('click', signOut);
+
+  //  authToken = localStorage.getItem('authToken');
+    apiHost = 'http://localhost:3000/';
+   // setupAjaxRequests();
   };
 
-  var submitRegistration = function(e){
-    if(e.preventDeafault){
-      e.preventDefault();
-    }
+  var submitRegistration = function(event){
+    localStorage.setItem('locationId', $('#user-region').val());
+    event.preventDefault();
     $.ajax({
       url:apiHost + '/users',
       type: 'POST',
@@ -25,7 +29,7 @@ var Registration = (function(){
         {
           username: $('#username').val(),
           email: $('#email').val(),
-          password: $('#password').val()
+          password: $('#password').val(),
         }
       },
       complete: function(response){
@@ -56,10 +60,10 @@ var Registration = (function(){
     return false;
   };
 
-  var setupAjaxRequests = function(authToken) {
+  var setupAjaxRequests = function(tempAuthToken) {
     $.ajaxPrefilter(function( options ) {
       options.headers = {};
-      options.headers['AUTHORIZATION'] = 'Token token=' + authToken;
+      options.headers['AUTHORIZATION'] = 'Token token=' + tempAuthToken;
     });
   };
 
@@ -67,24 +71,45 @@ var Registration = (function(){
     event.preventDefault();
     localStorage.removeItem('authToken');
     localStorage.removeItem('userId');
-    localStorage.removeItem('userName');
+   // localStorage.removeItem('userName');
     localStorage.removeItem('profileId');
+    localStorage.removeItem('region');
     authToken = undefined;
     console.log('User has been signed out');
     location.reload();
-    window.location.href = '/';
+    router.navigate('/', {trigger:true});
+    //window.location.href = '/';
   };
 
   var loginSuccess = function(userData) {
-    console.log('loginSuccess userData: ',userData);
-    localStorage.setItem('userId', userData.user_id);
-    localStorage.setItem('userName', userData.username);
     localStorage.setItem('authToken', userData.token);
-    localStorage.setItem('profileId', userData.profile_id);
-    //Add patch method here.
-    // console.log('logged in!');
+    authToken = userData.token;
+    setupAjaxRequests(authToken);
 
-    window.location.href = '#/dashboard';
+    localStorage.setItem('userId', userData.user_id);
+    localStorage.setItem('profileId', userData.profile_id);
+    setUserProfileLocation(localStorage.getItem('locationId'));
+    router.navigate('#/dashboard', {trigger:true});
+   // window.location.href = '#/dashboard';
+  };
+
+  var setUserProfileLocation = function(locationId){
+    var profile_id = localStorage.getItem('profileId');
+    $.ajax({
+      url: apiHost + 'profiles/' + profile_id,
+      type: 'PUT',
+      data: {
+        profile: {
+          location_id: locationId,
+        }
+      },
+    })
+    .done(function(profile) {
+      trace(profile);
+    })
+    .fail(function() {
+      console.log("error");
+    });
   };
 
   var acceptFailure = function(error) {
@@ -92,10 +117,14 @@ var Registration = (function(){
     // If status is unauthorized, then redirect to a login route/page
     if (error.status === 401) {
       console.log('SEND TO LOGIN SCREEN');
-      window.location.href = '#/sign_in';
+      router.navigate('#/sign_in', {trigger:true});
+     // window.location.href = '#/sign_in';
     }
   };
 
-  return {run: run,
-    setupAjaxRequests: setupAjaxRequests};
+  return {
+    run: run,
+    setupAjaxRequests: setupAjaxRequests
+      };
+
 })();
