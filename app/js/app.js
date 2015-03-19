@@ -19,7 +19,6 @@ var App = (function(){
       'profile':'profile',
       'matchProfile/:id':'matchProfile',
       'addImage':'addImage'
-      //http://localhost:9000/#
     },
     home: function(){
       $('#matchRow').empty();
@@ -28,17 +27,19 @@ var App = (function(){
         url: apiHost + 'profiles',
         type:'GET'
       }).done(function(response){
-       // trace(response);// call method to filter for limited number of images
-       response.map(function(profile){
-      if(profile.featureImage == null){
-        profile.featureImage = "https://s3.amazonaws.com/datingapp-wdi/uploads/default-blue_300x300.png";
-      };
-    });
+        var indArr = randomFour(response.length);
+        var randProfiles = indArr.map(function(ind){
+          return(response[ind]);
+        });
+        randProfiles.map(function(profile){
+          if(profile.featureImage == null){
+            profile.featureImage = 'https://s3.amazonaws.com/datingapp-wdi/uploads/default-blue_300x300.png';
+          }
+        });
         var template = Handlebars.compile($('#homeTemplate').html());
-
-      $('#container').html(template({
-        profiles: response
-      }));
+        $('#container').html(template({
+          profiles: randProfiles
+        }));
       }).fail(function(jqXHR, textStatus, errorThrow){
           trace(jqXHR, textStatus, errorThrow);
         }).always(function(response){
@@ -50,8 +51,6 @@ var App = (function(){
       $('#matchRow').empty();
       $('#container').empty().load('partials/signup.html', function(response,status,xhr){
       Registration.run();
-  // Dashboard.run();
-   //   trace(response,status,xhr);
       });
     },
 
@@ -59,18 +58,13 @@ var App = (function(){
       $('#matchRow').empty();
       $('#container').empty().load('partials/signin.html', function(response,status,xhr){
       Registration.run();
-   // Dashboard.run();
-   //   trace(response,status,xhr);
-
       });
     },
 
     dashboard: function(){
       $('#container').empty();
       $('#matchRow').empty().load('dashboard.html', function(response,status,xhr){
-       // Dashboard.run();
-       Dashboard.getMatchesImages();
-    //  trace(response,status,xhr);
+      Dashboard.getMatchesSnapshots();
       });
     },
 
@@ -78,7 +72,6 @@ var App = (function(){
       $('#matchRow').empty();
       $('#container').empty().load('partials/profile.html', function(response,status,xhr){
         Dashboard.getUserProfile();
-   //   trace(response,status,xhr);
       });
     },
 
@@ -99,6 +92,18 @@ var App = (function(){
       });
     },
   });
+
+  var randomFour = function(max){
+    var indArr = [];
+    var tempNum;
+    for(var i = 0; i < 4; i++){
+      tempNum = (Math.floor(Math.random() * (max - 0)) + 0);
+      if (indArr.indexOf() < 0){
+        indArr.push(tempNum);
+      }
+    }
+    return(indArr);
+   };
 
   return {Router:Router};
 })();

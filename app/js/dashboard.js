@@ -61,24 +61,24 @@ var Dashboard = (function(module){
           trace(response);
     });
   };
-  // currently showing all images
 
-  module.getMatchesImages = function(){
+  module.getMatchesSnapshots = function(){
     Registration.setupAjaxRequests(localStorage.getItem('authToken'));
-    var location_id = localStorage.getItem('locationId');;
+    var location_id = localStorage.getItem('locationId');
+    var user_id = localStorage.getItem('userId');
     $.ajax({
-    //  url: apiHost + 'images',
      url: module.apiHost + 'locations/' + location_id,
       type: 'GET',
     }).done(function(response){
-    //console.log(response);
-   // debugger;
-    response.map(function(profile){
-      if(profile.featureImage == null){
-        profile.featureImage = "https://s3.amazonaws.com/datingapp-wdi/uploads/default-blue_300x300.png";
-      };
+    var filterResponse = $.grep(response, function(e){
+     return e.id != user_id;
     });
-      module.renderMatchImages(response);
+    filterResponse.map(function(profile){
+      if(profile.featureImage == null){
+        profile.featureImage = 'https://s3.amazonaws.com/datingapp-wdi/uploads/default-blue_300x300.png';
+      }
+    });
+    module.renderMatchImages(filterResponse);
     }).fail(function(jqXHR, textStatus, errorThrow){
           trace(jqXHR, textStatus, errorThrow);
     }).always(function(response){
@@ -112,7 +112,7 @@ var Dashboard = (function(module){
 
   module.renderAMatchProfile = function(match){
     if(match.featureImage === null){
-      match.featureImage = "https://s3.amazonaws.com/datingapp-wdi/uploads/default-blue_300x300.png";
+      match.featureImage = 'https://s3.amazonaws.com/datingapp-wdi/uploads/default-blue_300x300.png';
     }
     var template = Handlebars.compile($('#matchProfileTemplate').html());
       //$('#container').html(template({
@@ -120,7 +120,6 @@ var Dashboard = (function(module){
         matchProfile: match
       }));
   };
-
 
   return module;
 
