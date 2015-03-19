@@ -8,16 +8,8 @@ var trace = function(){
 
 var Dashboard = (function(module){
  // module.authToken =localStorage.getItem('authToken');
-  module.bucketUrl = 'https://s3.amazonaws.com/datingapp-wdi/uploads/';
+  module.bucketUrl = 'https://s3.amazonaws.com/datingapp-wdi/';
   module.apiHost = 'http://localhost:3000/';
-
-  //module.run = function(){
-  //  Registration.setupAjaxRequests(module.authToken);
-  //App.setupAjaxRequests(module.authToken);
-  //  module.getAmazonJson();
-  //  module.getMatchesImages();
-
-  //};
 
   module.getAmazonJson = function(){
   Registration.setupAjaxRequests(localStorage.getItem('authToken'));
@@ -43,13 +35,14 @@ var Dashboard = (function(module){
     //  e.preventDefault();
       module.postImageRails(fileName);
       $($form).submit();
+      router.navigate('#/dashboard', {trigger:true});
     });
   };
 
   module.postImageRails = function(imageUrl){
     Registration.setupAjaxRequests(localStorage.getItem('authToken'));
     //need to grab profile_id from somewhere.
-    var profile_id = 1;
+    var profile_id = localStorage.getItem('profileId');
     $.ajax({
       url: module.apiHost + 'profiles/'+ profile_id +'/images',
       type: 'POST',

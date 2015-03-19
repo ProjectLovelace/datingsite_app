@@ -93,6 +93,7 @@ var App = (function(){
     },
 
     addImage: function(){
+      $('#matchRow').empty();
       $('#container').empty().load('dashboard.html', function(response,status,xhr){
         Dashboard.getAmazonJson();
       });

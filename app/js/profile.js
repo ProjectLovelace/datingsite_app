@@ -24,11 +24,9 @@ var Dashboard = (function(module) {
   };
 
   module.showUserProfileForm = function(profile) {
-    response.map(function(profile){
-      if(profile.featureImage == null){
-        profile.featureImage = "https://s3.amazonaws.com/datingapp-wdi/uploads/default-blue_300x300.png";
-      };
-    });
+    if(profile.featureImage == null){
+      profile.featureImage = "https://s3.amazonaws.com/datingapp-wdi/uploads/default-blue_300x300.png";
+    };
     var template = Handlebars.compile($('#userEditProfileTemplate').html());
     var location = module.matchLocation()
     $('#container').html(template({
@@ -61,7 +59,8 @@ var Dashboard = (function(module) {
     })
     .done(function(profile) {
       localStorage.setItem('locationId', profile.location_id);
-      console.log("success");
+     // console.log("success");
+      router.navigate('#/dashboard', {trigger:true});
     })
     .fail(function() {
       console.log("error");
