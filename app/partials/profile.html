@@ -5,23 +5,36 @@
 
     <form id="profile-edit-form">
 
-      Age: <input type=text id=user-age-field value="{{editProfile.age}}" />
+      Age: <input type=text id="user-age-field" value="{{editProfile.age}}" />
 
-      Seeking: <select id=user-seeking-field>
+      Seeking: <select id="user-seeking-field">
         <option value="Romantic">Romantic</option>
         <option value="Platonic">Platonic</option>
         <option value="Strictly Code">Strictly Code</option>
       </select>
 
-      Gender: <select id=user-gender-field>
+      Gender: <select id="user-gender-field">
         <option value="Male">Male</option>
         <option value="Female">Female</option>
         <option value="Other">Other</option>
       </select>
 
-      Bio: <input type=text id=user-bio-field value="{{editProfile.bio}}" />
+      Bio: <input type=text id="user-bio-field" value="{{editProfile.bio}}" />
 
-      Languages: <input type=text id=user-languages-field value="{{editProfile.languages}}" />
+      Languages: <input type=text id="user-languages-field" value="{{editProfile.languages}}" />
+
+      <label for='selectregion'> Select Region
+      <select id="select-region" name='selectregion'>
+        <option value="{{editProfile.location_id}}"> {{location}}</option>
+        <option value="1"> Metro Boston</option>
+        <option value="2">North Shore</option>
+        <option value="3">North West</option>
+        <option value="4">Metro West</option>
+        <option value="5">South Shore</option>
+        <option value="6">Central Mass</option>
+        <option value="7">Cape Cod</option>
+      </select>
+      </label>
 
       <input type="submit" class="submitProfile" value="Save Your Profile"/>
     </form>

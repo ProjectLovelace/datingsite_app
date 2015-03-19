@@ -7,7 +7,7 @@ var trace = function(){
 };
 
 var App = (function(){
-  var url='http://localhost:3000/';
+  var apiHost='http://localhost:3000/';
 
   var Router = Backbone.Router.extend({
     routes:{
@@ -24,7 +24,7 @@ var App = (function(){
     home: function(){
       $('#container').empty();
       $.ajax({
-        url: url + 'profiles',
+        url: apiHost + 'profiles',
         type:'GET'
       }).done(function(response){
         trace(response);// call method to filter for limited number of images
@@ -66,24 +66,15 @@ var App = (function(){
       $('#container').empty().load('partials/profile.html', function(response,status,xhr){
       Dashboard.getUserProfile();
    //   trace(response,status,xhr);
-
       });
     },
 
     matchProfile: function(){
-    //   debugger;
-    // var $buttonMatch = $('button.matchProfile');
-    // $('body').on('click',$buttonMatch, function(e,$buttonMatch){
-    //   debugger;
-    // });
       var locate = window.location.hash;
       var point = locate.lastIndexOf('/');
       var profileId = parseInt(locate.substring(point+1, locate.length));
-
       $('#container').empty().load('partials/match_profile.html', function(response,status,xhr){
         Dashboard.aMatchProfile(profileId);
-     //   trace(response,status,xhr);
-
       });
     },
 
@@ -93,25 +84,19 @@ var App = (function(){
       });
     },
   });
-  return {Router:Router};
 
+  return {Router:Router};
 })();
 
 var router = new App.Router();
 Backbone.history.start();
 
-//$(document).ready(function(){
- // App.();
-//});
-
 $(document).ajaxStart(function(e){
- // trace('starting an ajax request');
   $('section#ajax-preloader').fadeIn();
 });
 
 $(document).ajaxComplete(function(e, xhr, settings) {
   /* executes whenever an AJAX request completes */
- // trace(e,xhr,settings);
   $('section#ajax-preloader').fadeOut();
   $('section#container').fadeIn();
 });

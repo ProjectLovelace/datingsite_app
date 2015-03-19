@@ -70,7 +70,7 @@ var Dashboard = (function(module){
 
   module.getMatchesImages = function(){
    // Registration.setupAjaxRequests(module.authToken);
-    var location_id = 1;
+    var location_id = localStorage.getItem('region');;
     $.ajax({
     //  url: apiHost + 'images',
      url: module.apiHost + 'locations/' + location_id,
