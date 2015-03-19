@@ -12,7 +12,7 @@ var Registration = (function(){
     $('#registrationForm').on('submit', submitRegistration);
     $('#loginForm').on('submit', submitLogin);
     $('#signOut').on('click', signOut);
-    apiHost = 'http://localhost:3000/';
+    apiHost = 'http://sheltered-everglades-8006.herokuapp.com/';
   };
 
   var submitRegistration = function(event){
