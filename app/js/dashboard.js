@@ -115,7 +115,8 @@ var Dashboard = (function(module){
 
   module.renderAMatchProfile = function(match){
     var template = Handlebars.compile($('#matchProfileTemplate').html());
-      $('#container').html(template({
+      //$('#container').html(template({
+        $('#matchRow').html(template({
         matchProfile: match
       }));
   };

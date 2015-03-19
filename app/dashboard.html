@@ -1,5 +1,6 @@
   <script type="text/x-handlebars-template" id="matchesTemplate">
     {{#each snapshots}}
+      <div class="col-xs-2" id="match-container">
         <div class="snapshot">
         <ul>
           <li><img src={{featureImage}}></li>
@@ -8,6 +9,7 @@
           <li><a href="/#/matchProfile/{{id}}"> Full Profile</a></li>
           </ul>
         </div>
+      </div>
     {{/each}}
   </script>
 

@@ -1,3 +1,10 @@
+body {
+    width: 100%;
+    margin: auto;
+    padding: 5px;
+    background-color: #ADD8E6;
+}
+
 .navbar navbar-default{
    height:50px;
    background-color: #949494;
@@ -7,3 +14,27 @@ img{
   width: 200px;
   height: auto;
 }
+
+ul li{
+  list-style-type:none;
+}
+
+#match-container{
+    vertical-align: top;
+    height: 300px;
+    width: 300px;
+  //  background: #D3D3D3;
+}
+
+#match-container ul{
+ vertical-align: top;
+ background: #d3d3d3;
+ margin: 1px;
+ padding: 5px;
+ height: 100%;
+ border: 3px white dashed;
+ background: #D3D3D3
+
+}
+
+
